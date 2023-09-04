@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group 'test'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    flatDir(
+            dirs: '/clever-bank/src/main/resources'
+    )
+}
+
+ext {
+    junitVersion = '5.9.2'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    compileOnly(group: 'org.postgresql', name: 'postgresql', version: '42.0.0')
+    runtimeOnly 'org.postgresql:postgresql'
+    annotationProcessor(group: 'org.postgresql', name: 'postgresql', version: '42.0.0')
+    implementation group: "com.fasterxml.jackson.dataformat", name: "jackson-dataformat-yaml", version: "2.13.4"
+    compileOnly("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.4")
+    annotationProcessor("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.4")
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.12.7.1'
+    compileOnly('com.fasterxml.jackson.core:jackson-databind:2.12.7.1')
+    annotationProcessor 'com.fasterxml.jackson.core:jackson-databind:2.12.7.1'
+    compileOnly('jakarta.servlet:jakarta.servlet-api:5.0.0')
+    compileOnly 'org.projectlombok:lombok:1.18.28'
+    annotationProcessor 'org.projectlombok:lombok:1.18.28'
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+}
+
+test {
+    useJUnitPlatform()
+}

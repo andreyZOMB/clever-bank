@@ -1,0 +1,5 @@
+---
+driver: "org.postgresql.Driver"
+DBurl: "jdbc:postgresql://localhost:5432/clever_bank"
+username: "postgres"
+password: "admin"
